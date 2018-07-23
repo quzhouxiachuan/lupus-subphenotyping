@@ -18,7 +18,7 @@ x$cld_acr_ana = as.factor(x$cld_acr_ana)
 x$cld_acr_immun = as.factor(x$cld_acr_immun)
 data = x 
 #################################
-###model development 
+###model development, PAM clustering 
 set.seed(3296)    # this makes the example exactly reproducible
 # this returns the distance matrix with Gower's distance:  
 g.dist = daisy(data, metric="gower", type=list(symm=2))
@@ -28,14 +28,15 @@ pc[2:3]
 #[1] 2
 #$crit
 #[1] 0.0000000 0.2846817 0.2441667 0.2359307 0.2197452
-
 pc = pc$pamobject;  
+
+################################################
+#######hierarchical clustering 
+################################################
 hc.m = hclust(g.dist, method="median")
 plot(hc.m)
 
-######################################
-#######gower clustering 
-#########################################
+
 
 
 
