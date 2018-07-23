@@ -1,7 +1,8 @@
-##  https://stats.stackexchange.com/questions/130974/how-to-use-both-binary-and-continuous-variables-together-in-clustering
-
 library(cluster)  # we'll use these packages
 library(fpc)
+library(Rtsne)
+library(dplyr) # for data cleaning
+
 setwd('/Volumes/fsmresfiles/IPHAM/CHIP/Data_Team/Projects/Lupus/Yu')
 x = read.csv('edw_cld_acr_071218_DENG.csv')
 x = x[,1:12]
@@ -17,14 +18,13 @@ x$cld_acr_heme = as.factor(x$cld_acr_heme)
 x$cld_acr_ana = as.factor(x$cld_acr_ana)
 x$cld_acr_immun = as.factor(x$cld_acr_immun)
 data = x 
-
+data = data[,-1]
 #################################
-###model development, PAM clustering 
-#####################################
-set.seed(3296)    # this makes the example exactly reproducible
+###model development 
+set.seed(32961)    # this makes the example exactly reproducible
 # this returns the distance matrix with Gower's distance:  
-g.dist = daisy(data, metric="gower", type=list(symm=2))
-pc = pamk(g.dist, krange=1:5, criterion="asw")
+g.dist = daisy(data, metric="gower", type=list(symm=1:11))
+pc = pamk(g.dist, krange=1:10, criterion="asw")
 pc[2:3]
 #$nc
 #[1] 2
@@ -34,32 +34,59 @@ pc = pc$pamobject;
 pam=pam(g.dist,k=2,diss=TRUE)
 #get average silinfo score
 asw=pam$silinfo$avg.width
-pdf("lupus_2clusters.pdf")
 plot(pam)
-dev.off()
 
-################################################
-#######hierarchical clustering 
-################################################
+############data summary #############
+pam_results <- x %>%
+  dplyr::select(-MRN) %>%
+  mutate(cluster = pam$clustering) %>%
+  group_by(cluster) %>%
+  do(the_summary = summary(.))
+pam_results$the_summary
+#####################visualization ###########
+tsne_obj <- Rtsne(g.dist, is_distance = TRUE)
+
+tsne_data <- tsne_obj$Y %>%
+  data.frame() %>%
+  setNames(c("X", "Y")) %>%
+  mutate(cluster = factor(pam$clustering),
+         name = x$MRN)
+
+ggplot(aes(x = X, y = Y), data = tsne_data) +
+  geom_point(aes(color = cluster))
+
+tsne_obj <- Rtsne(g.dist, is_distance = TRUE, dims= 3)
+
+tsne_data <- tsne_obj$Y %>%
+  data.frame() %>%
+  setNames(c("X", "Y",'Z')) %>%
+  mutate(cluster = factor(pam$clustering),
+         name = x$MRN)
+
+p <- plot_ly(tsne_data, x = ~X, y = ~Y, z = ~Z, color = ~cluster, colors = c('#BF382A', '#0C4B8E'),size=I(3)) %>%
+  add_markers() %>%
+  layout(scene = list(xaxis = list(title = 'X'),
+                      yaxis = list(title = 'Y'),
+                      zaxis = list(title = 'Z')))
+
+p
+
+
+
+
 hc.m = hclust(g.dist, method="median")
 plot(hc.m)
-
-
-###############################################
-########polCA latent class analysis 
-#######################################
-
-
-
-
-
-
+s=NULL
+for(i in 2:10){
+  k=cutree(hclust(g.dist, method="median"),i)
+  s[i]=summary(silhouette(k,dist(data)))$si.summary[3]
+}
+######################################
+#######gower clustering 
+#########################################
 
 
 
-#############################################
-#####clara : https://stat.ethz.ch/R-manual/R-devel/library/cluster/html/clara.html
-###############################
 
 
 
