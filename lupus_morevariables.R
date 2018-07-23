@@ -19,9 +19,6 @@ x = x[,colnames(x) %in% c('MRN','TOBACUSE','FATIGUE','THRALGIA',
                           'NSAID','VASODIL','ANTI_HYP','CARDIAK','GI_AGENT','ANTIBIOT','THYRHORM',
                           'DIABETES','CYCLSPRN')]
 
-
-
-x = x[,-c('PREDNISO','ASA','PULSE_ST','PLAQUENL','DAPSONE','CYTOXAN','PULSE_CY','IMURAN','METHOTRX')]
 x = subset(x, select=-c(PREDNISO,ASA,PULSE_ST,PLAQUENL,DAPSONE,CYTOXAN,PULSE_CY,IMURAN,METHOTRX)) 
 
 
