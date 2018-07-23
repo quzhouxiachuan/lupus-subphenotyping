@@ -1,4 +1,4 @@
-https://stats.stackexchange.com/questions/130974/how-to-use-both-binary-and-continuous-variables-together-in-clustering
+##  https://stats.stackexchange.com/questions/130974/how-to-use-both-binary-and-continuous-variables-together-in-clustering
 
 library(cluster)  # we'll use these packages
 library(fpc)
