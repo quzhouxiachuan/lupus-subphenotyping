@@ -31,6 +31,12 @@ pc[2:3]
 #$crit
 #[1] 0.0000000 0.2846817 0.2441667 0.2359307 0.2197452
 pc = pc$pamobject;  
+pam=pam(g.dist,k=2,diss=TRUE)
+#get average silinfo score
+asw=pam$silinfo$avg.width
+pdf("lupus_2clusters.pdf")
+plot(pam)
+dev.off()
 
 ################################################
 #######hierarchical clustering 
