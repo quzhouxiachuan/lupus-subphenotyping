@@ -57,4 +57,12 @@ plot(hc.m)
 
 
 
+#############################################
+#####clara : https://stat.ethz.ch/R-manual/R-devel/library/cluster/html/clara.html
+###############################
+
+
+
+
+
 
