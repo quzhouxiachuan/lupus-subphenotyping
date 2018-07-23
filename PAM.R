@@ -17,8 +17,10 @@ x$cld_acr_heme = as.factor(x$cld_acr_heme)
 x$cld_acr_ana = as.factor(x$cld_acr_ana)
 x$cld_acr_immun = as.factor(x$cld_acr_immun)
 data = x 
+
 #################################
 ###model development, PAM clustering 
+#####################################
 set.seed(3296)    # this makes the example exactly reproducible
 # this returns the distance matrix with Gower's distance:  
 g.dist = daisy(data, metric="gower", type=list(symm=2))
@@ -36,6 +38,10 @@ pc = pc$pamobject;
 hc.m = hclust(g.dist, method="median")
 plot(hc.m)
 
+
+###############################################
+########polCA latent class analysis 
+#######################################
 
 
 
