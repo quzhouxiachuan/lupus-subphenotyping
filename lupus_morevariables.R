@@ -19,11 +19,21 @@ x = x[,colnames(x) %in% c('MRN','TOBACUSE','FATIGUE','THRALGIA',
                           'NSAID','VASODIL','ANTI_HYP','CARDIAK','GI_AGENT','ANTIBIOT','THYRHORM',
                           'DIABETES','CYCLSPRN')]
 
-x = subset(x, select=-c(PREDNISO,ASA,PULSE_ST,PLAQUENL,DAPSONE,CYTOXAN,PULSE_CY,IMURAN,METHOTRX)) 
+x = subset(x, select=-c(PREDNISO,ASA,PULSE_ST,PLAQUENL,DAPSONE,CYTOXAN,PULSE_CY,IMURAN,METHOTRX,CYCLSPRN)) 
 
 
+library(mice)
+dat = x[,-1] 
+init = mice(dat, maxit=0) 
+meth = init$method
+predM = init$predictorMatrix
+#predM[c('MRN')]=0
 
 
+meth[c("TOBACUSE",'JOINTSWE','MTHULCER','PHOTOS','MAL_RASH','DIS_RASH','PLEURISY','RAYNAUDS','ANTI_HYP','CARDIAK','ANTIBIOT','THYRHORM')]="logreg" 
+meth[c("FATIGUE",'THRALGIA','HEADACHE','THROMBUS','REMIT','NSAID','VASODIL','GI_AGENT','STROKE','ALOPECIA','DIABETES')]="polyreg"
+set.seed(103)
+imputed = mice(dat, method=meth, predictorMatrix=predM, m=5)
 
 
 
