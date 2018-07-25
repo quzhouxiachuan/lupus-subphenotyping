@@ -1,5 +1,3 @@
-#title 
-
 #install.packages("poLCA")
 library("poLCA")
 
@@ -139,6 +137,13 @@ fit.plot<-ggplot(results2) +
 fit.plot
 
 
-lc2<-poLCA(f, data=mydata, nclass=2, na.rm = FALSE, nrep=30, maxiter=3000,)
+lc2<-poLCA(f, data=mydata, nclass=2, na.rm = FALSE, nrep=30, maxiter=3000,graph=TRUE)
+
+
+
+
+
+
+
 
 
