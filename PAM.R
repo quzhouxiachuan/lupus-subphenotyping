@@ -6,6 +6,9 @@ library(dplyr) # for data cleaning
 setwd('/Volumes/fsmresfiles/IPHAM/CHIP/Data_Team/Projects/Lupus/Yu')
 x = read.csv('edw_cld_acr_071218_DENG.csv')
 x = x[,1:12]
+
+#x= sapply(x, function(x) as.factor(x)))
+       
 x$cld_acr_malar = as.factor(x$cld_acr_malar)
 x$cld_acr_discoid = as.factor(x$cld_acr_discoid)
 x$cld_acr_photo = as.factor(x$cld_acr_photo)
