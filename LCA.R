@@ -12,6 +12,8 @@ library("ggplot2")
 #library("tidyr")
 
 # select variables
+setwd('/Volumes/fsmresfiles/IPHAM/CHIP/Data_Team/Projects/Lupus/Yu')
+x = read.csv('edw_cld_acr_071218_DENG.csv')
 mydata <- x[,-1]
 
 # define function
