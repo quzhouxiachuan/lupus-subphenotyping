@@ -17,14 +17,14 @@ x = read.csv('edw_cld_acr_071218_DENG.csv')
 mydata <- x[,-1]
 mydata = mydata+1 
 # define function
-f<-with(mydata, cbind(cld_acr_malar, cld_acr_discoid, cld_acr_photo, cld_acr_ulcer,    
-                      cld_acr_arthritis, cld_acr_serositis, cld_acr_renal, cld_acr_neuro,   
-                      cld_acr_heme, cld_acr_ana,  cld_acr_immun)~1) 
+#f<-with(mydata, cbind(cld_acr_malar, cld_acr_discoid, cld_acr_photo, cld_acr_ulcer,    
+ #                     cld_acr_arthritis, cld_acr_serositis, cld_acr_renal, cld_acr_neuro,   
+ #                    cld_acr_heme, cld_acr_ana,  cld_acr_immun)~1) 
 
 
 f<-with(mydata, cbind(ACRMAL, ACRDISC, ACRPHOTO, ACRJOINT,    
-                      cld_acr_arthritis, cld_acr_serositis, cld_acr_renal, cld_acr_neuro,   
-                      cld_acr_heme, cld_acr_ana,  cld_acr_immun)~1) 
+                      ACRSERO, ACRRENAL, ACRNEURO, ACRHEME,   
+                      ACRANA, ACRIMMUN, ACRULCER)~1) 
 
 #------ run a sequence of models with 1-10 classes and print out the model with the lowest BIC
 max_II <- -100000
@@ -47,9 +47,16 @@ LCA_best_model
 #mydata <- x[,-1]
 
 # define function
-f<-with(mydata, cbind(cld_acr_malar, cld_acr_discoid, cld_acr_photo, cld_acr_ulcer,    
-                      cld_acr_arthritis, cld_acr_serositis, cld_acr_renal, cld_acr_neuro,   
-                      cld_acr_heme, cld_acr_ana,  cld_acr_immun)~1)
+#f<-with(mydata, cbind(cld_acr_malar, cld_acr_discoid, cld_acr_photo, cld_acr_ulcer,    
+ #                     cld_acr_arthritis, cld_acr_serositis, cld_acr_renal, cld_acr_neuro,   
+  #                    cld_acr_heme, cld_acr_ana,  cld_acr_immun)~1)
+
+f<-with(mydata, cbind(ACRMAL, ACRDISC, ACRPHOTO, ACRJOINT,    
+                      ACRSERO, ACRRENAL, ACRNEURO, ACRHEME,   
+                      ACRANA, ACRIMMUN, ACRULCER)~1) 
+
+
+
 ## models with different number of groups without covariates:
 set.seed(01012)
 lc1<-poLCA(f, data=mydata, nclass=1, na.rm = FALSE, nrep=30, maxiter=3000) #Loglinear independence model.
