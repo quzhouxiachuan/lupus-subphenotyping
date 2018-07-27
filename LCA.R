@@ -1,3 +1,6 @@
+
+#https://maksimrudnev.com/2016/12/28/latent-class-analysis-in-r/
+
 #install.packages("poLCA")
 library("poLCA")
 
