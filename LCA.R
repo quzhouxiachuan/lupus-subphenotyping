@@ -15,9 +15,14 @@ library("ggplot2")
 setwd('/Volumes/fsmresfiles/IPHAM/CHIP/Data_Team/Projects/Lupus/Yu')
 x = read.csv('edw_cld_acr_071218_DENG.csv')
 mydata <- x[,-1]
-
+mydata = mydata+1 
 # define function
 f<-with(mydata, cbind(cld_acr_malar, cld_acr_discoid, cld_acr_photo, cld_acr_ulcer,    
+                      cld_acr_arthritis, cld_acr_serositis, cld_acr_renal, cld_acr_neuro,   
+                      cld_acr_heme, cld_acr_ana,  cld_acr_immun)~1) 
+
+
+f<-with(mydata, cbind(ACRMAL, ACRDISC, ACRPHOTO, ACRJOINT,    
                       cld_acr_arthritis, cld_acr_serositis, cld_acr_renal, cld_acr_neuro,   
                       cld_acr_heme, cld_acr_ana,  cld_acr_immun)~1) 
 
@@ -39,7 +44,7 @@ LCA_best_model
 
 
 #select data
-mydata <- x[,-1]
+#mydata <- x[,-1]
 
 # define function
 f<-with(mydata, cbind(cld_acr_malar, cld_acr_discoid, cld_acr_photo, cld_acr_ulcer,    
