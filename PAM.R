@@ -22,6 +22,7 @@ x$cld_acr_ana = as.factor(x$cld_acr_ana)
 x$cld_acr_immun = as.factor(x$cld_acr_immun)
 data = x 
 data = data[,-1]
+data = as.data.frame(data)
 #################################
 ###model development 
 set.seed(32961)    # this makes the example exactly reproducible
