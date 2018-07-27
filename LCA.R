@@ -1,5 +1,6 @@
 
 #https://maksimrudnev.com/2016/12/28/latent-class-analysis-in-r/
+#http://statistics.ohlsen-web.de/latent-class-analysis-polca/
 
 #install.packages("poLCA")
 library("poLCA")
