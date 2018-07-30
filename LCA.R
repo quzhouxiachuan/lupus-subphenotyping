@@ -130,7 +130,7 @@ results[6,7]<-lc6$Gsq
 # Order categories of results$model in order of appearance
 install.packages("forcats")
 library("forcats")
-results$model < - as_factor(results$model) 
+results$Modell < - as_factor(results$Modell) 
 
 #convert to long format
 results2<-tidyr::gather(results,Kriterium,Guete,4:7)
