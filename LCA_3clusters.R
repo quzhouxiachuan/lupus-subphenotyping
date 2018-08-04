@@ -3,6 +3,10 @@ library("plyr")
 library("dplyr")
 library("poLCA")
 library("ggplot2")
+library(cluster)  # we'll use these packages
+library(fpc)
+library(Rtsne)
+library(dplyr)
 setwd('R:/IPHAM/CHIP/Data_Team/Projects/Lupus/Yu')
 x = read.csv('cld_full_acr.csv')
 x = x[,6:16] 
