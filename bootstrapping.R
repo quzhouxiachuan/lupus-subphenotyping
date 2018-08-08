@@ -23,7 +23,7 @@ smp_size <- floor(0.9 * nrow(x))
 train_ind <- sample(seq_len(nrow(x)), size = smp_size)
 train <- x[train_ind, ]
 test <- x[-train_ind, ]
-mydata = test + 1 
+mydata = train + 1 
 mydata = sapply(mydata, function(x) as.factor(x))
 mydata = as.data.frame(mydata)
 f<-with(mydata, cbind(rash, ACRPHOTO, ACRJOINT,    
