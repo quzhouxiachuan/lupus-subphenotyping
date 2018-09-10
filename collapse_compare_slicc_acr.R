@@ -67,6 +67,50 @@ colnames(res) = c('dermatitis','hemo','immu','slicc_ulcer','slicc_arthritis','sl
 write.csv(res, 'LCA_lupus_bootstrapping_slicc_collapse.csv')
 
 
+y = read.csv('cld_full_acr.csv')
+y = y[,6:16] 
+y$dermatitis = y$ACRMAL + y$ACRDISC + y$ACRPHOTO
+y$dermatitis[y$dermatitis>1] =1
+y= y[,c('dermatitis', 'ACRJOINT','ACRSERO', 'ACRRENAL', 'ACRNEURO', 'ACRHEME', 'ACRANA', 'ACRIMMUN', 'ACRULCER')]
+
+#x = x[,3:12]
+#x= sapply(x, function(x) as.factor(x))
+# split x into training and testing dataset 
+res = data.frame() 
+for (i in 1112:1112)
+{
+  set.seed(i)
+  # smp_size <- floor(0.9 * nrow(x))
+  smp_size <- floor(1 * nrow(y))
+  train_ind <- sample(seq_len(nrow(y)), size = smp_size)
+  train <- y[train_ind, ]
+  test <- y[-train_ind, ]
+  mydata = train + 1 
+  mydata = sapply(mydata, function(y) as.factor(y))
+  mydata = as.data.frame(mydata)
+  
+  f<-with(mydata, cbind(dermatitis, ACRJOINT,ACRSERO, ACRRENAL, ACRNEURO, ACRHEME, ACRANA, ACRIMMUN, ACRULCER)~1) 
+  ####################################################
+  # using the whole dataset for clustering 
+  #mydata = x + 1 
+  #mydata = sapply(mydata, function(x) as.factor(x))
+  #mydata = as.data.frame(mydata)
+  
+  #set.seed(01125)
+  #lc_whole<-poLCA(f, data=mydata, nclass=3, na.rm = FALSE, nrep=30, maxiter=3000,graph=TRUE)
+  lc_test<-poLCA(f, data=mydata, nclass=3, na.rm = FALSE, nrep=30, maxiter=3000) #,graph=TRUE)
+  #lc_train<-poLCA(f, data=train+1, nclass=3, na.rm = FALSE, nrep=30, maxiter=3000,graph=TRUE)
+  
+  new = cbind(lc_test$probs$dermatitis[4:6],lc_test$probs$ACRJOINT[4:6],lc_test$probs$ACRSERO[4:6], lc_test$probs$ACRRENAL[4:6]
+              ,lc_test$probs$ACRNEURO[4:6],lc_test$probs$ACRHEME[4:6],lc_test$probs$ACRANA[4:6]
+              ,lc_test$probs$ACRIMMUN[4:6],lc_test$probs$ACRULCER[4:6],
+              lc_test$P)
+  res = rbind(new, res)
+  
+}
+colnames(res) = c('dermatitis','ACRJOINT','ACRSERO','ACRRENAL','ACRNEURO','ACRHEME','ACRANA','ACRIMMUN','ACRULCER',
+                  'population_share')
+write.csv(res, 'LCA_lupus_bootstrapping_acr_collapse.csv')
 
 
 
