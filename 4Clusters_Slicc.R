@@ -44,6 +44,13 @@ colnames(res) = c("slicc_acute","slicc_discoid", "slicc_ulcer", "slicc_alopecia"
                   , 'population_share')
 
 
+res = cbind(lc_test$probs$slicc_acute[4:6],lc_test$probs$slicc_discoid[4:6],lc_test$probs$slicc_ulcer[4:6],lc_test$probs$slicc_alopecia[4:6]
+            , lc_test$probs$slicc_arthritis[4:6],lc_test$probs$slicc_serositis[4:6],lc_test$probs$slicc_renal[4:6],lc_test$probs$slicc_neuro[4:6]
+            ,lc_test$probs$slicc_hemanemia[4:6],lc_test$probs$slicc_leuk[4:6],lc_test$probs$slicc_throm[4:6],lc_test$probs$slicc_ana[4:6],lc_test$probs$slicc_dsdna[4:6]
+            ,lc_test$probs$slicc_sm[4:6], lc_test$probs$slicc_apa[4:6],lc_test$probs$slicc_compliment[4:6],lc_test$probs$slicc_coombs[4:6],
+            lc_test$P)
+
+
 
 
 
