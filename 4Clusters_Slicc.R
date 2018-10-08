@@ -8,7 +8,8 @@ library(fpc)
 library(Rtsne)
 library(dplyr)
 setwd('R:/IPHAM/CHIP/Data_Team/Projects/Lupus/Yu')
-x = read.csv('./cld_full_slicc.csv')
+#x = read.csv('./cld_full_slicc.csv')
+x = read.csv('./cld_slicc_final.csv')
 x = x[,2:18]
 
 res = data.frame() 
