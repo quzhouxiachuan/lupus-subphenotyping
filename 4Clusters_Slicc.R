@@ -14,12 +14,12 @@ x = x[,2:18]
 
 res = data.frame() 
 mydata= x + 1 
-#f<-with(mydata, cbind(slicc_acute,slicc_discoid,slicc_ulcer,slicc_alopecia, slicc_arthritis, slicc_serositis, slicc_renal, slicc_neuro, slicc_hemanemia,
-     #                 slicc_leuk, slicc_throm, slicc_ana, slicc_dsdna, slicc_sm, slicc_apa, slicc_compliment, slicc_coombs)~1) 
-
-
 f<-with(mydata, cbind(slicc_acute,slicc_discoid,slicc_ulcer,slicc_alopecia, slicc_arthritis, slicc_serositis, slicc_renal, slicc_neuro, slicc_hemanemia,
-                      slicc_leuk, slicc_throm, slicc_ana, slicc_dsdna, slicc_sm, slicc_apa, slicc_compliment, slicc_lymph)~1) 
+                     slicc_leuk, slicc_throm, slicc_ana, slicc_dsdna, slicc_sm, slicc_apa, slicc_compliment, slicc_coombs)~1) 
+
+
+#f<-with(mydata, cbind(slicc_acute,slicc_discoid,slicc_ulcer,slicc_alopecia, slicc_arthritis, slicc_serositis, slicc_renal, slicc_neuro, slicc_hemanemia,
+ #                     slicc_leuk, slicc_throm, slicc_ana, slicc_dsdna, slicc_sm, slicc_apa, slicc_compliment, slicc_lymph)~1) 
 max_II <- -100000
 min_bic <- 100000
 
@@ -35,27 +35,25 @@ for(i in 2:10){
 LCA_best_model
 
 
-
+#when the number of clusters are 4 
 lc_test = LCA_best_model
 res = cbind(lc_test$probs$slicc_acute[5:8],lc_test$probs$slicc_discoid[5:8],lc_test$probs$slicc_ulcer[5:8],lc_test$probs$slicc_alopecia[5:8]
             , lc_test$probs$slicc_arthritis[5:8],lc_test$probs$slicc_serositis[5:8],lc_test$probs$slicc_renal[5:8],lc_test$probs$slicc_neuro[5:8]
-            ,lc_test$probs$slicc_hemanemia[5:8],lc_test$probs$slicc_leuk[5:8],lc_test$probs$slicc_throm[5:8],lc_test$probs$slicc_ana[5:8],lc_test$probs$slicc_dsdna[5:8]
-            ,lc_test$probs$slicc_hemanemia[5:8],lc_test$probs$slicc_leuk[5:8],lc_test$probs$slicc_throm[5:8],lc_test$probs$slicc_ana[5:8],lc_test$probs$slicc_dsdna[5:8]
+            ,lc_test$probs$slicc_hemanemia[5:8],lc_test$probs$slicc_leuk[5:8],lc_test$probs$slicc_throm[5:8],lc_test$probs$slicc_ana[5:8],lc_test$probs$slicc_dsdna[5:8] 
             ,lc_test$probs$slicc_sm[5:8], lc_test$probs$slicc_apa[5:8],lc_test$probs$slicc_compliment[5:8]
-            #,lc_test$probs$slicc_coombs[5:8],
-            ,lc_test$probs$slicc_lymph[5:8]
+            ,lc_test$probs$slicc_coombs[5:8],
             lc_test$P)
 
 colnames(res) = c("slicc_acute","slicc_discoid", "slicc_ulcer", "slicc_alopecia", "slicc_arthritis" , "slicc_serositis","slicc_renal", "slicc_neuro", "slicc_hemanemia" 
                   ,"slicc_leuk", "slicc_throm", "slicc_ana" , "slicc_dsdna" , "slicc_sm", "slicc_apa" , "slicc_compliment", "slicc_coombs"  
                   , 'population_share')
 
-
-res = cbind(lc_test$probs$slicc_acute[4:6],lc_test$probs$slicc_discoid[4:6],lc_test$probs$slicc_ulcer[4:6],lc_test$probs$slicc_alopecia[4:6]
-            , lc_test$probs$slicc_arthritis[4:6],lc_test$probs$slicc_serositis[4:6],lc_test$probs$slicc_renal[4:6],lc_test$probs$slicc_neuro[4:6]
-            ,lc_test$probs$slicc_hemanemia[4:6],lc_test$probs$slicc_leuk[4:6],lc_test$probs$slicc_throm[4:6],lc_test$probs$slicc_ana[4:6],lc_test$probs$slicc_dsdna[4:6]
-            ,lc_test$probs$slicc_sm[4:6], lc_test$probs$slicc_apa[4:6],lc_test$probs$slicc_compliment[4:6],lc_test$probs$slicc_coombs[4:6],
-            lc_test$P)
+# when the number of clusters are 3 
+#res = cbind(lc_test$probs$slicc_acute[4:6],lc_test$probs$slicc_discoid[4:6],lc_test$probs$slicc_ulcer[4:6],lc_test$probs$slicc_alopecia[4:6]
+#            , lc_test$probs$slicc_arthritis[4:6],lc_test$probs$slicc_serositis[4:6],lc_test$probs$slicc_renal[4:6],lc_test$probs$slicc_neuro[4:6]
+#            ,lc_test$probs$slicc_hemanemia[4:6],lc_test$probs$slicc_leuk[4:6],lc_test$probs$slicc_throm[4:6],lc_test$probs$slicc_ana[4:6],lc_test$probs$slicc_dsdna[4:6]
+#            ,lc_test$probs$slicc_sm[4:6], lc_test$probs$slicc_apa[4:6],lc_test$probs$slicc_compliment[4:6],lc_test$probs$slicc_coombs[4:6],
+#            lc_test$P)
 
 
 
