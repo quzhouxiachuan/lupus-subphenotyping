@@ -28,6 +28,7 @@ data = as.data.frame(data)
 set.seed(32961)    # this makes the example exactly reproducible
 # this returns the distance matrix with Gower's distance:  
 g.dist = daisy(data, metric="gower", type=list(symm=1:11))
+#https://stats.stackexchange.com/questions/55798/what-is-the-optimal-distance-function-for-individuals-when-attributes-are-nomina/55802#55802
 pc = pamk(g.dist, krange=1:10, criterion="asw")
 pc[2:3]
 #$nc
