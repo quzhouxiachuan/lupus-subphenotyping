@@ -126,17 +126,9 @@ kkk$ttoevent = as.numeric(kkk$ttoevent)
 kkk$death_flag[kkk$death_flag=='NULL'] = 0 
 
 
-
-
 library(survival)
 library(survminer)
 #colnames(big)[2] = 'class'
-
-fit <- survfit(Surv(ttoevent, as.factor(death_flag)) ~ class, data = kkk)
+fit <- survfit(Surv(ttoevent, as.numeric(death_flag)) ~ class, data = kkk)
 ggsurvplot(fit, data = kkk, risk.table = TRUE, pval = TRUE, conf.int = TRUE )
-
-
-
-
-
 
