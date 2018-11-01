@@ -1,4 +1,4 @@
-setwd('R:/IPHAM/CHIP/Data_Team/Projects/Lupus/YU/medoinfo Conference')
+setwd('/Volumes/fsmresfiles/IPHAM/CHIP/Data_Team/Projects/Lupus/YU/medoinfo Conference')
 library("reshape2")
 library("plyr")
 library("dplyr")
@@ -31,13 +31,15 @@ x$ACRDISC = as.numeric(as.character(x$ACRDISC))
 x$rash = x$ACRMAL + x$ACRDISC
 x$rash[x$rash>1] =1 
 x1 = x [,c('MRN', 'BIRTHDAY', 'SEX','RACE','DXDATE','ACRSCORE','rash','ACRPHOTO','ACRJOINT',
-        'ACRSERO', 'ACRRENAL', 'ACRNEURO','ACRHEME','ACRANA','ACRIMMUN','ACRGI','DXAGE1')]
+           'ACRSERO', 'ACRRENAL', 'ACRNEURO','ACRHEME','ACRANA','ACRIMMUN','ACRGI','DXAGE1')]
 
 
 ###############################################
 #get patient cohort 1). having dx before 2014-03-21  2)no missing in the death data  
 
-enc = read.table('./death_data_oldedw.txt',sep = '\t')
+#enc = read.table('./death_data_oldedw.txt',sep = '\t')
+enc= read.table('./death_data_oldedw.txt', head=F,
+           colClasses=c('character','character','character'), sep = '\t')
 enc$V1 = as.character(enc$V1)
 enc[1,1] = '00001347'
 x1$MRN = as.character(x1$MRN)
@@ -107,12 +109,13 @@ kkk$`LCA_best_model$predclass` = as.factor(kkk$`LCA_best_model$predclass`)
 colnames(kkk)[1] = 'class'
 
 kkk$ttoevent = 'empty'
+kkk$death_flag = as.character(kkk$death_flag)
 for (i in (1:dim(kkk)[1]))
 {
-  if (kkk[i,'death_flag'] !='1'){
+  if (kkk[i,'death_flag'] == 'NULL'){
     kkk[i,'ttoevent'] = as.Date('2014-03-21') - as.Date(kkk$DXDATE[i])
   }
-    else
+  else
   {
     kkk[i,'ttoevent'] = as.Date(kkk$death_date[i]) -  as.Date(kkk$DXDATE[i])
     
@@ -120,24 +123,17 @@ for (i in (1:dim(kkk)[1]))
   
 }
 kkk$ttoevent = as.numeric(kkk$ttoevent)
+kkk$death_flag[kkk$death_flag=='NULL'] = 0 
+
 
 
 
 library(survival)
 library(survminer)
 #colnames(big)[2] = 'class'
-kkk$death_flag = as.character(kkk$death_flag)
-kkk$death_flag[kkk$death_flag=='NULL'] = 0 
-kkk$death_flag = as.factor(kkk$death_flag)
 
-data = kkk[,c('class','death_flag','ttoevent')]
-data$class = as.factor(data$class)
-data$death_flag = as.factor(data$death_flag)
-data$ttoevent = as.numeric(data$class)
-
-
-fit <- survfit(Surv(ttoevent, death_flag) ~ class, data = data)
-ggsurvplot(fit, data = data, risk.table = TRUE, pval = TRUE, conf.int = TRUE )
+fit <- survfit(Surv(ttoevent, as.factor(death_flag)) ~ class, data = kkk)
+ggsurvplot(fit, data = kkk, risk.table = TRUE, pval = TRUE, conf.int = TRUE )
 
 
 
