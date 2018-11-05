@@ -9,11 +9,11 @@ library(fpc)
 library(Rtsne)
 library(dplyr)
 x = read.table('LUPUS_DATA1 1Dec2017.CSV', sep = ',')
-#delete duplicated patients; 08506490 and 07923366
+#delete duplicated patients;  and # a complete script refer to medinfo code secured folder. 
 x$V1 = as.character(x$V1)
 x = x[x$V1 != 'MRN',]
-x= x[x$V1 != '08506490',]
-x = x[x$V1 != '07923366',]
+x= x[x$V1 != '',]
+x = x[x$V1 != '',]
 colns = colnames (read.csv('LUPUS_DATA1 1Dec2017.CSV'))
 colnames(x) = colns 
 
@@ -44,7 +44,7 @@ x1 = x [,c('MRN', 'BIRTHDAY', 'SEX','RACE','DXDATE','ACRSCORE','rash','ACRPHOTO'
 enc= read.table('./death_data_oldedw.txt', head=F,
                 colClasses=c('character','character','character'), sep = '\t')
 enc$V1 = as.character(enc$V1)
-enc[1,1] = '00001347'
+enc[1,1] = '' #a complete script refer to medinfo code folder
 x1$MRN = as.character(x1$MRN)
 kk =merge(enc, x1, by.x= 'V1',by.y = 'MRN')
 colnames(kk)[1:4] = c('MRN','death_flag','alive','death_date')
