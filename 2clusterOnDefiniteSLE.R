@@ -48,14 +48,8 @@ enc[1,1] = '00001347'
 x1$MRN = as.character(x1$MRN)
 kk =merge(enc, x1, by.x= 'V1',by.y = 'MRN')
 colnames(kk)[1:4] = c('MRN','death_flag','alive','death_date')
-#00317490 07439482 07679455  07727243 08260731 13524359 00311497 do not have death date 
-kk = kk[kk$MRN != '00311497',]
-kk = kk[kk$MRN != '00317490',]
-kk = kk[kk$MRN != '07439482',]
-kk = kk[kk$MRN != '07679455',]
-kk = kk[kk$MRN != '07727243',]
-kk = kk[kk$MRN != '08260731',]
-kk = kk[kk$MRN != '13524359',]
+#delete 7 MRNs Here. Please refer to script in your secured datafolder
+
 
 
 
