@@ -9,10 +9,10 @@ library(fpc)
 library(Rtsne)
 library(dplyr)
 x = read.table('LUPUS_DATA1 1Dec2017.CSV', sep = ',')
-#delete duplicated patients; 08506490 and 07923366
+#delete duplicated patients; 
 x$V1 = as.character(x$V1)
-x= x[x$V1 != '08506490',]
-x = x[x$V1 != '07923366',]
+x= x[x$V1 != '',] # a complete script see medinfo code secured folder 
+x = x[x$V1 != '',]
 x = x[x$V1 != 'MRN',]
 colns = colnames (read.csv('LUPUS_DATA1 1Dec2017.CSV'))
 colnames(x) = colns 
@@ -41,18 +41,18 @@ x1 = x [,c('MRN', 'BIRTHDAY', 'SEX','RACE','DXDATE','ACRSCORE','rash','ACRPHOTO'
 enc= read.table('./death_data_oldedw.txt', head=F,
                 colClasses=c('character','character','character'), sep = '\t')
 enc$V1 = as.character(enc$V1)
-enc[1,1] = '00001347'
+enc[1,1] = '' # a complete analysis see medinfo code folder
 x1$MRN = as.character(x1$MRN)
 kk =merge(enc, x1, by.x= 'V1',by.y = 'MRN')
 colnames(kk)[1:4] = c('MRN','death_flag','alive','death_date')
-#00317490 07439482 07679455  07727243 08260731 13524359 00311497 do not have death date 
-kk = kk[kk$MRN != '00311497',]
-kk = kk[kk$MRN != '00317490',]
-kk = kk[kk$MRN != '07439482',]
-kk = kk[kk$MRN != '07679455',]
-kk = kk[kk$MRN != '07727243',]
-kk = kk[kk$MRN != '08260731',]
-kk = kk[kk$MRN != '13524359',]
+#delete patients without death date ; a complete script see medinfo code folder 
+kk = kk[kk$MRN != '',]
+kk = kk[kk$MRN != '',]
+kk = kk[kk$MRN != '',]
+kk = kk[kk$MRN != '',]
+kk = kk[kk$MRN != ' ',]
+kk = kk[kk$MRN != ' ',]
+kk = kk[kk$MRN != ' ',]
 
 
 
